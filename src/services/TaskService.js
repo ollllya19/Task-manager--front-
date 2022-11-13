@@ -1,3 +1,6 @@
+import axios from 'axios';
+
+// пока не работает
 
 export async function createTask(data) {
     const response = await fetch('/task', {
@@ -8,20 +11,29 @@ export async function createTask(data) {
     return await response.json();
 }
 
-export async function getAllTasks() {
+export function getTaskById() {
     try{
-        const response = await fetch('/tasks');
-        return await response.json();
+        // user authorization token
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : "Token 1370f76a5da252b49cce28c962afa53be4276242"
+            },
+        };
+        const url = 'http://127.0.0.1:8000/task-manager/tasks/today';
+        return axios.get(url, config)
+        .then(res => res.data);
     }catch(error) {
+        console.log(error);
         return [];
     }
 }
 
-export async function getTaskById() {
-    try{
-        const response = await fetch('/tasks');
-        return await response.json();
-    }catch(error) {
-        return [];
-    }
+
+export async function deleteTask() {
+    const response = await fetch('/task', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+        })
+    return await response.json();
 }
