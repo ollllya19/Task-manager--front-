@@ -1,4 +1,5 @@
 import axios from 'axios';
+const rootUrl = 'http://127.0.0.1:8000/task-manager';
 
 // user authorization token
 const config = {
@@ -9,7 +10,18 @@ const config = {
 
 export async function getAllProjects() {
     try{
-        const url = 'http://127.0.0.1:8000/task-manager/projects';
+        const url = `${rootUrl}/projects`;
+        return axios.get(url, config)
+        .then(res => res.data);
+    }catch(error) {
+        console.log(error);
+        return [];
+    }
+}
+
+export async function getTasksofProject(projectName) {
+    try{
+        const url = `${rootUrl}/project/${projectName}`;
         return axios.get(url, config)
         .then(res => res.data);
     }catch(error) {
