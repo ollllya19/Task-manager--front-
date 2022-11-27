@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import MainPage from './MainPage/MainPage'
-import SideBar from './SideBar/SideBar'
+import TasksSideBar from './SideBar/TasksSideBar'
+import ProjectSideBar from './SideBar/ProjectsSideBar'
 
 import { getIncomingTasks, getTodayTasks, getUpcomingTasks } from './services/TaskFilterService'
-import { getAllProjects } from './services/ProjectService'
+import { getAllProjects, getTasksofProject } from './services/ProjectService'
 
 
 function App() {
 
-  // Дофолтные такси для тестирования (поменять позже)
-  const [tasks, setTasks] = useState([
-    {id: 1, title: 'Питон 1'},
-    {id: 2, title: 'Питон 2'},
-    {id: 3, title: 'Питон 3'},
+  const [tasks, setTasks] = useState([]);
+
+  const [projects, setProjects] = useState([
+    {id: 1, title: "Заголовок 1"},
+    {id: 2, title: "Заголовок 2"},
+    {id: 3, title: "Заголовок 3"},
   ]);
 
   // tasks 
@@ -45,23 +47,44 @@ function App() {
     getAllProjects() 
     .then(response => {
     console.log(response);
+    setProjects(response);
+    });
+  };
+
+  const getProjectTasks = (event) => {
+    // передаем название проекта в запрос
+    getTasksofProject(event.target.value) 
+    .then(response => {
+    console.log(response);
     setTasks(response);
     });
-  }
+  };
+
+  // initial loading of tasks (incoming tasks)
+  useEffect(() => {
+    getTasksToday();
+    getProjectsAll();
+    }, []);
 
   return (
     <div>
-        {/* Блок сайдбара */}
-        <SideBar
-          getIncomingTasks={getProjectsAll}
+        {/* Блок сайдбара с задачами */}
+        <TasksSideBar
+        // Сделать первую вкладку по умолчанию
+          getIncomingTasks={getTasksIncoming}
           getTodayTasks={getTasksToday}
-          getUpcomingTasks={getTasksUpcoming}
-          //getAllProjects={getProjectsAll}
-        />
+          getUpcomingTasks={getTasksUpcoming}>
+        </TasksSideBar>
+        {/* Блок с проектами */}
+        <ProjectSideBar
+          projects={projects}
+          //changeProject={getProjectTasks}
+        ></ProjectSideBar>
 
         {/* Блок с расположением всех задач вкладки */}
-        <MainPage tasks={tasks}/>
-
+        <MainPage 
+          tasks={tasks}
+        ></MainPage>
     </div>
   );
 }
