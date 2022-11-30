@@ -5,17 +5,15 @@ import ProjectSideBar from './SideBar/ProjectsSideBar'
 
 import { getIncomingTasks, getTodayTasks, getUpcomingTasks } from './services/TaskFilterService'
 import { getAllProjects, getTasksofProject } from './services/ProjectService'
+import SideBar from './SideBar/SideBar'
+import Tasks from './SideBar/Tasks';
 
 
 function App() {
 
   const [tasks, setTasks] = useState([]);
 
-  const [projects, setProjects] = useState([
-    {id: 1, title: "Заголовок 1"},
-    {id: 2, title: "Заголовок 2"},
-    {id: 3, title: "Заголовок 3"},
-  ]);
+  const [projects, setProjects] = useState([]);
 
   // tasks 
   const getTasksIncoming = () => {
@@ -51,9 +49,9 @@ function App() {
     });
   };
 
-  const getProjectTasks = (event) => {
-    // передаем название проекта в запрос
-    getTasksofProject(event.target.value) 
+  const getProjectTasks = (project_title) => {
+    console.log(project_title);
+    getTasksofProject(project_title) 
     .then(response => {
     console.log(response);
     setTasks(response);
@@ -68,23 +66,16 @@ function App() {
 
   return (
     <div>
-        {/* Блок сайдбара с задачами */}
-        <TasksSideBar
-        // Сделать первую вкладку по умолчанию
-          getIncomingTasks={getTasksIncoming}
-          getTodayTasks={getTasksToday}
-          getUpcomingTasks={getTasksUpcoming}>
-        </TasksSideBar>
-        {/* Блок с проектами */}
-        <ProjectSideBar
-          projects={projects}
-          //changeProject={getProjectTasks}
-        ></ProjectSideBar>
-
-        {/* Блок с расположением всех задач вкладки */}
-        <MainPage 
-          tasks={tasks}
-        ></MainPage>
+      <SideBar
+        getIncomingTasks={getTasksIncoming}
+        getTodayTasks={getTasksToday}
+        getUpcomingTasks={getTasksUpcoming}
+        projects={projects}
+      />
+      <Tasks
+        tasks={tasks}
+      />
+      
     </div>
   );
 }
