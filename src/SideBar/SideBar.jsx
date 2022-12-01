@@ -2,7 +2,7 @@ import React from 'react'
 import TasksSideBar from './TasksSideBar'
 import ProjectsSideBar from './ProjectsSideBar'
 import ProjectItem from './ProjectItem'
-import "./styles.css"
+import "./styles_module.css"
 
 import project from "./images/project.svg"
 import settings from './images/settings.svg'
