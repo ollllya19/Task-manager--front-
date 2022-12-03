@@ -16,6 +16,12 @@ function App() {
 
   const [token, setToken] = useState('');
 
+  // to connect later
+  const getToken = (userToken) => {
+    setToken(userToken)
+    console.log(userToken)
+  }
+
   return (
     <div>
       <Router>
