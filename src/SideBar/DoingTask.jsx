@@ -4,7 +4,7 @@ import tag_deadline from "./images/tags-deadline.svg"
 import add from "./images/add.svg"
 
 
-const DoingTask = ({tasks}) => {
+const DoingTask = ({tasks, openTaskDialog}) => {
 
     return(
         <div>
@@ -14,7 +14,11 @@ const DoingTask = ({tasks}) => {
                     <div class="todo-name-column-2-title">В процессе</div>
                     <div class="todo-name-column-2-quantity">2</div>
                     </div>
-                    <button class="todo-name-column-create-task"><img src={add}/>Создать задачу</button>
+                    <button class="todo-name-column-create-task"
+                        onClick={openTaskDialog}>
+                        <img src={add}/>
+                        Создать задачу
+                    </button>
                 </div>
                 <div class="todo-tasks">
                 <tbody>

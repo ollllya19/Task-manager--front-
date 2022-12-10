@@ -6,21 +6,36 @@ import AddTaskDialog from './AddTaskDialog'
 
 
 const Tasks = ({todoTasks, doingTasks, doneTasks}) => {
+    
+    const [isDlgOpen, setIsDlgOpen] = useState(false);
+    const openTaskDialog = () => {
+        setIsDlgOpen(true)
+    }
+    const closeTaskDialog = () => {
+        setIsDlgOpen(false)
+    }
+
 
     return(
         <div>
             <div class="main-content">
             <div class="main-content-container">
             <ToDoTask
-                tasks={todoTasks}>
+                tasks={todoTasks}
+                openTaskDialog={openTaskDialog}>
             </ToDoTask>
             <DoingTask
-                tasks={doingTasks}>
+                tasks={doingTasks}
+                openTaskDialog={openTaskDialog}>
             </DoingTask>
             <DoneTask
-                tasks={doneTasks}>
+                tasks={doneTasks}
+                openTaskDialog={openTaskDialog}>
             </DoneTask>
-            <AddTaskDialog></AddTaskDialog>
+            <AddTaskDialog
+                isOpen={isDlgOpen}
+                onClose={closeTaskDialog}
+            ></AddTaskDialog>
             </div>
             </div>
         </div>

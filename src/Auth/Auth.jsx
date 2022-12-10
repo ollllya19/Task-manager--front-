@@ -1,43 +1,42 @@
 import React, { useState } from 'react'
 import background_img from "../SideBar/images/Background with Image.svg"
 import "../SideBar/styles_module.css"
-import { createUser } from '../services/AuthService'
+import { loginUser } from '../services/AuthService'
 import { useNavigate } from "react-router"
 
-const Register = () => {
+
+const Auth = () => {
     
     const navigate = useNavigate()
 
     const [name, setName] = useState('')
-    const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
 
     const onNameChange = (event) => {
-        // insert timeout here
         setName(event.target.value)
-    }
-
-    const onMailChange = (event) => {
-        setMail(event.target.value)
     }
 
     const onPasswordChange = (event) => {
         setPassword(event.target.value)
     }
 
-    const onUserCreate = () => {
-        createUser(name, mail, password)
+    const onUserLogin = () => {
+        loginUser(name, password)
         .then(response => {
         console.log(response);
-        navigate('/task-manager/auth')
+        // перенаправить на страницу с задачми с сохранением токена
         });
     }
 
+    const redirectRegister = () => {
+        navigate('/task-manager/register')
+    }
+
+
     return(
-        
         <div>
                 <div className="registration-title">
-                <div className="registration-title-title">Сложное в легкое</div>
+                <div className="registration-title-title">Войти в аккаунт</div>
                 <div className="registration-title-description">Удобный, простой и многофункциональный планировщик задач готовый помочь тебе отслеживать задачи</div>
                 </div>
                 <div className="registration-fields">
@@ -46,21 +45,23 @@ const Register = () => {
                     <input className="fields-input" onChange={onNameChange} value={name}/>
                 </div>
                 <div className="reg-auth-fields">
-                    <div className="fields-title">Электронный адрес</div>
-                    <input className="fields-input" onChange={onMailChange} value={mail}/>
-                </div>
-                <div className="reg-auth-fields">
                     <div className="fields-title">Пароль</div>
                     <input className="fields-input" onChange={onPasswordChange} value={password}/>
                 </div>
                 </div>
                 <div className="button-create-account">
-                <button className="button-create-account-cta" onClick={onUserCreate}>Создать аккаунт</button>
-                <button className="button-create-account-forget-password">Забыли пароль?</button>
-            </div>
-            <div className="right-photo"><img src={background_img}/></div>
+                    <button className="button-create-account-cta" 
+                        onClick={onUserLogin}>
+                            Войти в аккаунт
+                    </button>
+                    <button className="button-create-account-forget-password" 
+                        onClick={redirectRegister}>
+                            Не зарегистрированы? Создать аккаунт
+                    </button>
+                </div>
+                <div className="right-photo"><img src={background_img}/></div>
         </div>
     )
 }
 
-export default Register
+export default Auth
