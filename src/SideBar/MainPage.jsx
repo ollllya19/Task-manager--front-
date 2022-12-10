@@ -1,5 +1,4 @@
 import React from 'react'
-import background_img from "./images/Background with Image.svg"
 import "./styles_module.css"
 
 import { useState, useEffect } from 'react';
@@ -13,6 +12,9 @@ import SideBar from './SideBar'
 const MainPage = () => {
 
     const [tasks, setTasks] = useState([]);
+    const [todoTasks, setTodoTasks] = useState([])
+    const [doingTasks, setDoingTasks] = useState([])
+    const [doneTasks, setDoneTasks] = useState([])
 
     const [projects, setProjects] = useState([]);
 
@@ -23,6 +25,7 @@ const MainPage = () => {
         console.log(response);
         setTasks(response);
         });
+        setFilteredTasks()
     }
 
     const getTasksToday = () => {
@@ -31,6 +34,7 @@ const MainPage = () => {
         console.log(response);
         setTasks(response);
         });
+        setFilteredTasks()
     }
 
     const getTasksUpcoming = () => {
@@ -39,6 +43,7 @@ const MainPage = () => {
         console.log(response);
         setTasks(response);
         });
+        setFilteredTasks()
     }
 
     // projects
@@ -54,16 +59,36 @@ const MainPage = () => {
         console.log(project_title);
         getTasksofProject(project_title) 
         .then(response => {
-        console.log(response);
-        setTasks(response);
+        console.log(response)
+        setTasks(response)
+        setFilteredTasks()
         });
     };
-
-    // initial loading of tasks (incoming tasks)
+    
     useEffect(() => {
-        getTasksToday();
-        getProjectsAll();
-        }, []);
+        getTasksToday()
+        getProjectsAll()
+        setFilteredTasks()
+    }, []);
+
+    const setFilteredTasks = () => {
+        console.log("useEffect")
+        let todo = []
+        let doing = []
+        let done = []
+        for(let i = 0; i < tasks.length; i ++){
+            if (tasks[i].task.status === 1){
+                todo.push(tasks[i])
+            } else if (tasks[i].task.status === 2){
+                doing.push(tasks[i])
+            } else if (tasks[i].task.status === 3){
+                done.push(tasks[i])
+            }
+        }
+        setTodoTasks(todo)
+        setDoingTasks(doing)
+        setDoneTasks(done)
+    }
 
 
     return(
@@ -73,9 +98,12 @@ const MainPage = () => {
                 getTodayTasks={getTasksToday}
                 getUpcomingTasks={getTasksUpcoming}
                 projects={projects}
+                getProjectTasks={getProjectTasks}
             />
             <Tasks
-                tasks={tasks}
+                todoTasks={todoTasks}
+                doingTasks={doingTasks}
+                doneTasks={doneTasks}
             />
         </div>
     )

@@ -11,6 +11,9 @@ import settings from './images/settings.svg'
 const SideBar = (props) => {
 
 
+    const changeProject = (project_title) => {
+        props.getProjectTasks(project_title)
+    }
 
     return(
         <div>
@@ -55,11 +58,10 @@ const SideBar = (props) => {
                 {/* Проекты */}
                 <div className="projects">
                     <div className="projects-title">Проекты</div>
-                    
                     { props.projects.map((project) =>
                         <ProjectItem
                             project={project}
-                            onClick={() => props.changeProject(project.title)}
+                            onClick={() => changeProject(project.title)}
                         />
                     )}
                 </div>
