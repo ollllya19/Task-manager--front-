@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const rootUrl = 'http://127.0.0.1:8000/task-manager';
- // user authorization token (for testing)
+const rootUrl = 'http://127.0.0.1:8000/task-manager'
 const config = {
     headers: {
-        "Authorization" : "Token 1370f76a5da252b49cce28c962afa53be4276242"
+        "Authorization" : `Token ${localStorage.getItem('token')}`
     },
-};
+}
 
 export async function getTodayTasks() {
     try{

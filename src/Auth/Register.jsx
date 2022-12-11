@@ -13,7 +13,6 @@ const Register = () => {
     const [password, setPassword] = useState('')
 
     const onNameChange = (event) => {
-        // insert timeout here
         setName(event.target.value)
     }
 
@@ -28,7 +27,7 @@ const Register = () => {
     const onUserCreate = () => {
         createUser(name, mail, password)
         .then(response => {
-        console.log(response);
+        console.log(response)
         navigate('/task-manager/auth')
         });
     }
@@ -55,8 +54,13 @@ const Register = () => {
                 </div>
                 </div>
                 <div className="button-create-account">
-                <button className="button-create-account-cta" onClick={onUserCreate}>Создать аккаунт</button>
-                <button className="button-create-account-forget-password">Забыли пароль?</button>
+                <button className="button-create-account-cta" 
+                    onClick={onUserCreate}>
+                        Создать аккаунт
+                </button>
+                <button className="button-create-account-forget-password">
+                    Забыли пароль?
+                </button>
             </div>
             <div className="right-photo"><img src={background_img}/></div>
         </div>

@@ -13,21 +13,19 @@ import {
 
 function App() {
 
-  const [token, setToken] = useState('');
-
-  // to connect later
-  const getToken = (userToken) => {
-    setToken(userToken)
-    console.log(userToken)
-  }
-
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/task-manager/register" element={<Register/>} />
-          <Route path="/task-manager/auth" element={<Auth/>} />
-          <Route path="/task-manager/tasks" element={<MainPage/>} />
+          <Route path="/task-manager/register" 
+            element={<Register/>} 
+          />
+          <Route path="/task-manager/auth" 
+            element={<Auth/>} 
+          />
+          <Route path="/task-manager/tasks" 
+            element={<MainPage/>} 
+          />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>

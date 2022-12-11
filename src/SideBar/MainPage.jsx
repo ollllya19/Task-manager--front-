@@ -72,7 +72,6 @@ const MainPage = () => {
     }, []);
 
     const setFilteredTasks = () => {
-        console.log("useEffect")
         let todo = []
         let doing = []
         let done = []

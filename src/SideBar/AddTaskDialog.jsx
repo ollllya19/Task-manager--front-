@@ -3,12 +3,12 @@ import Dialog from '@mui/material/Dialog'
 import "./styles.css"
 
 
-const AddTaskDialog = ({isOpen, onClose}) => {
+const AddTaskDialog = ({isOpen, onClose, onTaskCreate}) => {
 
     const [taskTitle, setTaskTitle] = useState('')
     const [taskDesc, setTaskDesc] = useState('')
     const [taskUser, setTaskUser] = useState('')
-    const [taskStat, setTaskStat] = useState('')
+    const [taskStat, setTaskStat] = useState(1)
     const [project, setProject] = useState('')
     const [todoDate, setTodoDate] = useState('')
 
@@ -49,7 +49,14 @@ const AddTaskDialog = ({isOpen, onClose}) => {
         onClose()
     }
     const onSabmit = () => {
-        onClose()
+        onTaskCreate({
+            title: taskTitle,
+            desc: taskDesc,
+            status: taskStat,
+            project: project,
+            todoDate: todoDate
+        })
+        onCancel()
     }
 
 

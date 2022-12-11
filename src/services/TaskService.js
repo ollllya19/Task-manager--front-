@@ -1,16 +1,32 @@
 import axios from 'axios';
 
-// пока не работает
-
-export async function createTask(data) {
-    const response = await fetch('/task', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({task: data})
-        })
-    return await response.json();
+const rootUrl = 'http://127.0.0.1:8000/task-manager'
+const config = {
+    headers: {
+        "Authorization" : `Token ${localStorage.getItem('token')}`
+    }
 }
 
+export async function createTask(taskDict) {
+    try{
+        let body = {
+            title: taskDict.title,
+            desc: taskDict.desc,
+            status: taskDict.status,
+            project: taskDict.project,
+            todoDate: taskDict.todoDate
+        }
+        console.log(taskDict)
+        const url = `${rootUrl}/task`
+        return axios.post(url,body, config)
+        .then(res => res.data);
+    }catch(error) {
+        console.log(error);
+        return [];
+    }
+}
+
+// to do
 export function getTaskById() {
     try{
         // user authorization token
@@ -29,7 +45,7 @@ export function getTaskById() {
     }
 }
 
-
+// to check
 export async function deleteTask() {
     const response = await fetch('/task', {
         method: 'DELETE',

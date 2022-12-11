@@ -3,16 +3,26 @@ import ToDoTask from './ToDoTask'
 import DoingTask from './DoingTask'
 import DoneTask from './DoneTask'
 import AddTaskDialog from './AddTaskDialog'
+import { createTask } from '../services/TaskService'
 
 
 const Tasks = ({todoTasks, doingTasks, doneTasks}) => {
     
     const [isDlgOpen, setIsDlgOpen] = useState(false);
+    
     const openTaskDialog = () => {
         setIsDlgOpen(true)
     }
+
     const closeTaskDialog = () => {
         setIsDlgOpen(false)
+    }
+
+    const onCreateTask = (taskDict) => {
+        createTask(taskDict)
+        .then(response => {
+        console.log(response)
+        });
     }
 
 
@@ -35,6 +45,7 @@ const Tasks = ({todoTasks, doingTasks, doneTasks}) => {
             <AddTaskDialog
                 isOpen={isDlgOpen}
                 onClose={closeTaskDialog}
+                onTaskCreate={onCreateTask}
             ></AddTaskDialog>
             </div>
             </div>

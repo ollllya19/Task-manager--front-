@@ -5,7 +5,7 @@ import { loginUser } from '../services/AuthService'
 import { useNavigate } from "react-router"
 
 
-const Auth = () => {
+const Auth = ({setToken}) => {
     
     const navigate = useNavigate()
 
@@ -23,15 +23,16 @@ const Auth = () => {
     const onUserLogin = () => {
         loginUser(name, password)
         .then(response => {
-        console.log(response);
-        // перенаправить на страницу с задачми с сохранением токена
+        console.log(response)
+        setToken(response.auth_token)
+        localStorage.setItem('token', response.auth_token);
+        navigate('/task-manager/tasks')
         });
     }
 
     const redirectRegister = () => {
         navigate('/task-manager/register')
     }
-
 
     return(
         <div>
