@@ -3,7 +3,7 @@ import Dialog from '@mui/material/Dialog'
 import "./styles.css"
 
 
-const AddTaskDialog = ({isOpen, onClose, onTaskCreate}) => {
+const AddTaskDialog = ({isOpen, onClose, onTaskCreate, projects}) => {
 
     const [taskTitle, setTaskTitle] = useState('')
     const [taskDesc, setTaskDesc] = useState('')
@@ -34,6 +34,7 @@ const AddTaskDialog = ({isOpen, onClose, onTaskCreate}) => {
         setTaskStat('3')
     }
     const onProjectChange = (event) => {
+        console.log(event.target.value)
         setProject(event.target.value)
     }
     const onTodoDateChange = (event) => {
@@ -42,7 +43,7 @@ const AddTaskDialog = ({isOpen, onClose, onTaskCreate}) => {
     const onCancel = () => {
         setTaskTitle('')
         setTaskDesc('')
-        setTaskStat('')
+        setTaskStat(1)
         setProject('')
         setTaskUser('')
         setTodoDate('')
@@ -106,11 +107,20 @@ const AddTaskDialog = ({isOpen, onClose, onTaskCreate}) => {
                         </div>
                         <div className="create-new-task-project-deadline">
                             <div className="create-new-task-project-deadline-fields">Проект задачи
-                                <input className="create-new-task-project-deadline-input" 
+                                {/* <input className="create-new-task-project-deadline-input" 
                                     onChange={onProjectChange}
                                     placeholder="Выберите проект задачи"
                                     value={project}
-                                />
+                                /> */}
+                                
+                                <select className="create-new-task-project-deadline-input" onChange={onProjectChange}>
+                                {projects.map((project, index) => (
+                                <option key={index} value={project.title}>
+                                    {project.title}
+                                </option>
+                                ))}
+                                </select>
+
                             </div>
                             <div className="create-new-task-project-deadline-fields">Срок выполнения задачи
                                 <input className="create-new-task-project-deadline-input" 

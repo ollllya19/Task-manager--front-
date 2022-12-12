@@ -6,7 +6,7 @@ import AddTaskDialog from './AddTaskDialog'
 import { createTask } from '../services/TaskService'
 
 
-const Tasks = ({todoTasks, doingTasks, doneTasks}) => {
+const Tasks = ({todoTasks, doingTasks, doneTasks, projects}) => {
     
     const [isDlgOpen, setIsDlgOpen] = useState(false);
     
@@ -46,6 +46,7 @@ const Tasks = ({todoTasks, doingTasks, doneTasks}) => {
                 isOpen={isDlgOpen}
                 onClose={closeTaskDialog}
                 onTaskCreate={onCreateTask}
+                projects={projects}
             ></AddTaskDialog>
             </div>
             </div>

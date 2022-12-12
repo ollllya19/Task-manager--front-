@@ -7,7 +7,8 @@ const ProjectItem = (props) => {
 
     return(
         <div>
-            <button type="button" className="sidebar-tabs-category-button">
+            <button type="button" className="sidebar-tabs-category-button"
+                    onClick={props.onClick}>
                     <img src={project2}/>
                             {props.project.title}
                     <img src={new_person}/>

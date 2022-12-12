@@ -24,7 +24,6 @@ const Auth = ({setToken}) => {
         loginUser(name, password)
         .then(response => {
         console.log(response)
-        setToken(response.auth_token)
         localStorage.setItem('token', response.auth_token);
         navigate('/task-manager/tasks')
         });

@@ -103,6 +103,7 @@ const MainPage = () => {
                 todoTasks={todoTasks}
                 doingTasks={doingTasks}
                 doneTasks={doneTasks}
+                projects={projects}
             />
         </div>
     )
